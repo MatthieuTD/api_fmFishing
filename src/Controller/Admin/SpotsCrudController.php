@@ -26,6 +26,8 @@ class SpotsCrudController extends AbstractCrudController
             TextField::new('Name'),
             NumberField::new('profondeur_min'),
             TextField::new('image'),
+            NumberField::new('latitude'),
+            NumberField::new('longitude'),
             NumberField::new("superficie"),
             AssociationField::new("list_fish"),
             AssociationField::new("categorie"),

@@ -29,7 +29,7 @@ class Spots
     #[ORM\Column(type: 'float', nullable: true)]
     private $prodondeur_min;
 
-    #[ORM\Column(type: 'string', length: 9000)]
+    #[ORM\Column(type: 'string', length: 9000, nullable: true)]
     private $image;
 
     #[ORM\ManyToMany(targetEntity: Fishes::class, inversedBy: 'spots_list')]
@@ -39,11 +39,17 @@ class Spots
     private $grounds_list;
 
     #[ORM\ManyToOne(targetEntity: Categories::class, inversedBy: 'categorie')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private $categorie;
 
     #[ORM\ManyToOne(targetEntity: States::class, inversedBy: 'spots')]
     private $state;
+
+    #[ORM\Column(type: 'float', nullable: true)]
+    private $latitude;
+
+    #[ORM\Column(type: 'float', nullable: true)]
+    private $longitude;
 
     public function __construct()
     {
@@ -184,6 +190,30 @@ class Spots
     public function setState(?States $state): self
     {
         $this->state = $state;
+
+        return $this;
+    }
+
+    public function getLatitude(): ?float
+    {
+        return $this->latitude;
+    }
+
+    public function setLatitude(?float $latitude): self
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    public function getLongitude(): ?float
+    {
+        return $this->longitude;
+    }
+
+    public function setLongitude(?float $longitude): self
+    {
+        $this->longitude = $longitude;
 
         return $this;
     }
