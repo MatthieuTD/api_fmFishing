@@ -19,6 +19,17 @@ class SpotsRepository extends ServiceEntityRepository
         parent::__construct($registry, Spots::class);
     }
 
+    public function findByName(String $nameSearch){
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = "
+            SELECT * FROM spots
+            WHERE name LIKE '%".$nameSearch."%'
+            ";
+            $stmt = $conn->prepare($sql);
+         $result =   $stmt->executeQuery();
+
+        return $result->fetchAllAssociative();
+    }
     // /**
     //  * @return Spots[] Returns an array of Spots objects
     //  */
