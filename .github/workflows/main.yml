@@ -14,4 +14,4 @@ jobs:
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: api-fm-31121999 #Must be unique in Heroku
-          heroku_email: mtholot19@gmail.Com
+          heroku_email: mtholot19@gmail.com
