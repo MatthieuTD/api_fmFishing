@@ -1,4 +1,5 @@
 security:
+
     enable_authenticator_manager: true
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
@@ -18,6 +19,9 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
+            json_login:
+                # api_login is a route we will create below
+                check_path: api_login
             lazy: true
             provider: app_user_provider
 
