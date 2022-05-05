@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -27,6 +29,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'string')]
     private $password;
+
+    #[ORM\ManyToMany(targetEntity: FishingGroup::class, mappedBy: 'Users')]
+    private $listUsers;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $username;
+
+    public function __construct()
+    {
+        $this->listUsers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -96,5 +109,44 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection<int, FishingGroup>
+     */
+    public function getListUsers(): Collection
+    {
+        return $this->listUsers;
+    }
+
+    public function addListUser(FishingGroup $listUser): self
+    {
+        if (!$this->listUsers->contains($listUser)) {
+            $this->listUsers[] = $listUser;
+            $listUser->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeListUser(FishingGroup $listUser): self
+    {
+        if ($this->listUsers->removeElement($listUser)) {
+            $listUser->removeUser($this);
+        }
+
+        return $this;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(?string $username): self
+    {
+        $this->username = $username;
+
+        return $this;
     }
 }

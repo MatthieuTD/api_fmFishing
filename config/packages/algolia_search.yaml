@@ -1,5 +1,0 @@
-algolia_search:
-  indices:
-    - name: spots
-      class: App\Entity\Spots
-

@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Doctrine\ORM\EntityManager;
 
 class RegisterController extends AbstractController
 {
@@ -26,6 +27,7 @@ class RegisterController extends AbstractController
        $coco = json_decode($coco, true);
 
         $user->setEmail($coco["email"]);
+        $user->setUsername($coco["username"]);
         $plaintextPassword = $coco["password"];
 
         // hash the password (based on the security.yaml config for the $user class)
