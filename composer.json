@@ -34,8 +34,8 @@
         "symfony/serializer": "6.0.*",
         "symfony/twig-bundle": "6.0.*",
         "symfony/validator": "6.0.*",
-        "symfony/yaml": "6.0.*"
-
+        "symfony/yaml": "6.0.*",
+        "symfony/maker-bundle": "^1.40"
     },
     "config": {
         "allow-plugins": {
