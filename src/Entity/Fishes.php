@@ -23,12 +23,12 @@ class Fishes
     #[ORM\Column(type: 'string', length: 9000)]
     private $image;
 
-    #[ORM\ManyToMany(targetEntity: Spots::class, mappedBy: 'list_fish')]
-    private $spots_list;
+    #[ORM\ManyToMany(targetEntity: Spots::class, mappedBy: 'spotFish')]
+    private $spotsList;
 
     public function __construct()
     {
-        $this->spots_list = new ArrayCollection();
+        $this->spotsList = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -65,18 +65,18 @@ class Fishes
     }
 
     /**
-     * @return Collection|Spots[]
+     * @return Collection<int, Spots>
      */
     public function getSpotsList(): Collection
     {
-        return $this->spots_list;
+        return $this->spotsList;
     }
 
     public function addSpotsList(Spots $spotsList): self
     {
-        if (!$this->spots_list->contains($spotsList)) {
-            $this->spots_list[] = $spotsList;
-            $spotsList->addListFish($this);
+        if (!$this->spotsList->contains($spotsList)) {
+            $this->spotsList[] = $spotsList;
+            $spotsList->addSpotFish($this);
         }
 
         return $this;
@@ -84,10 +84,12 @@ class Fishes
 
     public function removeSpotsList(Spots $spotsList): self
     {
-        if ($this->spots_list->removeElement($spotsList)) {
-            $spotsList->removeListFish($this);
+        if ($this->spotsList->removeElement($spotsList)) {
+            $spotsList->removeSpotFish($this);
         }
 
         return $this;
     }
+
+
 }

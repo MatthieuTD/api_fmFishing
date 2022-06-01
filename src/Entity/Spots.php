@@ -32,11 +32,8 @@ class Spots
     #[ORM\Column(type: 'string', length: 9000, nullable: true)]
     private $image;
 
-    #[ORM\ManyToMany(targetEntity: Fishes::class, inversedBy: 'spots_list')]
-    private $list_fish;
 
-    #[ORM\ManyToMany(targetEntity: TypesGrounds::class, inversedBy: 'ground_list')]
-    private $grounds_list;
+
 
     #[ORM\ManyToOne(targetEntity: Categories::class, inversedBy: 'categorie')]
     #[ORM\JoinColumn(nullable: true)]
@@ -60,11 +57,17 @@ class Spots
     #[ORM\Column(type: 'string', length: 600, nullable: true)]
     private $description;
 
+    #[ORM\ManyToMany(targetEntity: Fishes::class, inversedBy: 'spotsList')]
+    private $spotFish;
+
+    #[ORM\ManyToMany(targetEntity: TypesGrounds::class, inversedBy: 'spotsList')]
+    private $groundSpot;
+
     public function __construct()
     {
-        $this->list_fish = new ArrayCollection();
-        $this->grounds_list = new ArrayCollection();
         $this->owner = new ArrayCollection();
+        $this->spotFish = new ArrayCollection();
+        $this->groundSpot = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -132,53 +135,6 @@ class Spots
         return $this;
     }
 
-    /**
-     * @return Collection|Fishes[]
-     */
-    public function getListFish(): Collection
-    {
-        return $this->list_fish;
-    }
-
-    public function addListFish(Fishes $listFish): self
-    {
-        if (!$this->list_fish->contains($listFish)) {
-            $this->list_fish[] = $listFish;
-        }
-
-        return $this;
-    }
-
-    public function removeListFish(Fishes $listFish): self
-    {
-        $this->list_fish->removeElement($listFish);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|TypesGrounds[]
-     */
-    public function getGroundsList(): Collection
-    {
-        return $this->grounds_list;
-    }
-
-    public function addGroundsList(TypesGrounds $groundsList): self
-    {
-        if (!$this->grounds_list->contains($groundsList)) {
-            $this->grounds_list[] = $groundsList;
-        }
-
-        return $this;
-    }
-
-    public function removeGroundsList(TypesGrounds $groundsList): self
-    {
-        $this->grounds_list->removeElement($groundsList);
-
-        return $this;
-    }
 
     public function getCategorie(): ?Categories
     {
@@ -272,6 +228,54 @@ class Spots
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Fishes>
+     */
+    public function getSpotFish(): Collection
+    {
+        return $this->spotFish;
+    }
+
+    public function addSpotFish(Fishes $spotFish): self
+    {
+        if (!$this->spotFish->contains($spotFish)) {
+            $this->spotFish[] = $spotFish;
+        }
+
+        return $this;
+    }
+
+    public function removeSpotFish(Fishes $spotFish): self
+    {
+        $this->spotFish->removeElement($spotFish);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, TypesGrounds>
+     */
+    public function getGroundSpot(): Collection
+    {
+        return $this->groundSpot;
+    }
+
+    public function addGroundSpot(TypesGrounds $groundSpot): self
+    {
+        if (!$this->groundSpot->contains($groundSpot)) {
+            $this->groundSpot[] = $groundSpot;
+        }
+
+        return $this;
+    }
+
+    public function removeGroundSpot(TypesGrounds $groundSpot): self
+    {
+        $this->groundSpot->removeElement($groundSpot);
 
         return $this;
     }

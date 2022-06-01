@@ -20,12 +20,14 @@ class TypesGrounds
     #[ORM\Column(type: 'string', length: 255)]
     private $name;
 
-    #[ORM\ManyToMany(targetEntity: Spots::class, mappedBy: 'grounds_list')]
-    private $ground_list;
+    #[ORM\ManyToMany(targetEntity: Spots::class, mappedBy: 'groundSpot')]
+    private $spotsList;
+
+
 
     public function __construct()
     {
-        $this->ground_list = new ArrayCollection();
+        $this->spotsList = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -49,29 +51,31 @@ class TypesGrounds
     }
 
     /**
-     * @return Collection|Spots[]
+     * @return Collection<int, Spots>
      */
-    public function getGroundList(): Collection
+    public function getSpotsList(): Collection
     {
-        return $this->ground_list;
+        return $this->spotsList;
     }
 
-    public function addGroundList(Spots $groundList): self
+    public function addSpotsList(Spots $spotsList): self
     {
-        if (!$this->ground_list->contains($groundList)) {
-            $this->ground_list[] = $groundList;
-            $groundList->addGroundsList($this);
+        if (!$this->spotsList->contains($spotsList)) {
+            $this->spotsList[] = $spotsList;
+            $spotsList->addGroundSpot($this);
         }
 
         return $this;
     }
 
-    public function removeGroundList(Spots $groundList): self
+    public function removeSpotsList(Spots $spotsList): self
     {
-        if ($this->ground_list->removeElement($groundList)) {
-            $groundList->removeGroundsList($this);
+        if ($this->spotsList->removeElement($spotsList)) {
+            $spotsList->removeGroundSpot($this);
         }
 
         return $this;
     }
+
+
 }

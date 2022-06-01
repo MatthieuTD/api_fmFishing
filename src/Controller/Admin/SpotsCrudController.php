@@ -33,10 +33,10 @@ class SpotsCrudController extends AbstractCrudController
             NumberField::new('latitude'),
             NumberField::new('longitude'),
             NumberField::new("superficie"),
-            AssociationField::new("list_fish"),
+            AssociationField::new("spotFish"),
             AssociationField::new("categorie"),
             AssociationField::new("state"),
-            AssociationField::new("grounds_list"),
+            AssociationField::new("groundSpot"),
             AssociationField::new("owner"),
 
 
