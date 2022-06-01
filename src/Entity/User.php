@@ -36,9 +36,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $username;
 
+    #[ORM\ManyToMany(targetEntity: Spots::class, mappedBy: 'owner')]
+    private $listSpots;
+
     public function __construct()
     {
         $this->listUsers = new ArrayCollection();
+        $this->listSpots = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -146,6 +150,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setUsername(?string $username): self
     {
         $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Spots>
+     */
+    public function getListSpots(): Collection
+    {
+        return $this->listSpots;
+    }
+
+    public function addListSpot(Spots $listSpot): self
+    {
+        if (!$this->listSpots->contains($listSpot)) {
+            $this->listSpots[] = $listSpot;
+            $listSpot->addOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeListSpot(Spots $listSpot): self
+    {
+        if ($this->listSpots->removeElement($listSpot)) {
+            $listSpot->removeOwner($this);
+        }
 
         return $this;
     }

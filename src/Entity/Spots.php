@@ -51,10 +51,17 @@ class Spots
     #[ORM\Column(type: 'float', nullable: true)]
     private $longitude;
 
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'listSpots')]
+    private $owner;
+
+    #[ORM\Column(type: 'date', nullable: true)]
+    private $dateAdd;
+
     public function __construct()
     {
         $this->list_fish = new ArrayCollection();
         $this->grounds_list = new ArrayCollection();
+        $this->owner = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -214,6 +221,42 @@ class Spots
     public function setLongitude(?float $longitude): self
     {
         $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getOwner(): Collection
+    {
+        return $this->owner;
+    }
+
+    public function addOwner(User $owner): self
+    {
+        if (!$this->owner->contains($owner)) {
+            $this->owner[] = $owner;
+        }
+
+        return $this;
+    }
+
+    public function removeOwner(User $owner): self
+    {
+        $this->owner->removeElement($owner);
+
+        return $this;
+    }
+
+    public function getDateAdd(): ?\DateTimeInterface
+    {
+        return $this->dateAdd;
+    }
+
+    public function setDateAdd(?\DateTimeInterface $dateAdd): self
+    {
+        $this->dateAdd = $dateAdd;
 
         return $this;
     }
