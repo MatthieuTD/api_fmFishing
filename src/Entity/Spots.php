@@ -57,7 +57,7 @@ class Spots
     #[ORM\Column(type: 'date', nullable: true)]
     private $dateAdd;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[ORM\Column(type: 'string', length: 600, nullable: true)]
     private $description;
 
     public function __construct()
