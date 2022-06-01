@@ -7,6 +7,7 @@ use App\Entity\Spots;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
@@ -24,6 +25,8 @@ class SpotsCrudController extends AbstractCrudController
     {
         return [
             TextField::new('Name'),
+            TextField::new('description'),
+            DateField::new('dateAdd'),
             NumberField::new('profondeur_min'),
             TextField::new('image'),
             NumberField::new('latitude'),
@@ -33,6 +36,7 @@ class SpotsCrudController extends AbstractCrudController
             AssociationField::new("categorie"),
             AssociationField::new("state"),
             AssociationField::new("grounds_list"),
+            AssociationField::new("owner"),
 
 
         ];

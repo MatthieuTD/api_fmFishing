@@ -57,6 +57,9 @@ class Spots
     #[ORM\Column(type: 'date', nullable: true)]
     private $dateAdd;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $description;
+
     public function __construct()
     {
         $this->list_fish = new ArrayCollection();
@@ -257,6 +260,18 @@ class Spots
     public function setDateAdd(?\DateTimeInterface $dateAdd): self
     {
         $this->dateAdd = $dateAdd;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }
