@@ -39,6 +39,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Spots::class, mappedBy: 'owner')]
     private $listSpots;
 
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private $phone;
+
     public function __construct()
     {
         $this->listUsers = new ArrayCollection();
@@ -180,6 +183,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         if ($this->listSpots->removeElement($listSpot)) {
             $listSpot->removeOwner($this);
         }
+
+        return $this;
+    }
+
+    public function getPhone(): ?int
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?int $phone): self
+    {
+        $this->phone = $phone;
 
         return $this;
     }
