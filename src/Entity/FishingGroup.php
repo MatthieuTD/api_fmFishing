@@ -26,7 +26,7 @@ class FishingGroup
     #[ORM\Column(type: 'date', nullable: true)]
     private $endDate;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true),]
     private $spot;
 
     #[ORM\Column(type: 'string', length: 255)]
