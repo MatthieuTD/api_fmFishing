@@ -45,10 +45,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $typePeche;
 
+    #[ORM\OneToMany(mappedBy: 'owner', targetEntity: FishingGroup::class, orphanRemoval: true)]
+    private $fishingGroups;
+
     public function __construct()
     {
         $this->listUsers = new ArrayCollection();
         $this->listSpots = new ArrayCollection();
+        $this->fishingGroups = new ArrayCollection();
     }
     public function __toString (): string
     {
@@ -210,6 +214,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setTypePeche(?string $typePeche): self
     {
         $this->typePeche = $typePeche;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, FishingGroup>
+     */
+    public function getFishingGroups(): Collection
+    {
+        return $this->fishingGroups;
+    }
+
+    public function addFishingGroup(FishingGroup $fishingGroup): self
+    {
+        if (!$this->fishingGroups->contains($fishingGroup)) {
+            $this->fishingGroups[] = $fishingGroup;
+            $fishingGroup->setOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFishingGroup(FishingGroup $fishingGroup): self
+    {
+        if ($this->fishingGroups->removeElement($fishingGroup)) {
+            // set the owning side to null (unless already changed)
+            if ($fishingGroup->getOwner() === $this) {
+                $fishingGroup->setOwner(null);
+            }
+        }
 
         return $this;
     }

@@ -38,6 +38,10 @@ class FishingGroup
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'listUsers')]
     private $Users;
 
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'fishingGroups')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $owner;
+
     public function __construct()
     {
         $this->Users = new ArrayCollection();
@@ -140,6 +144,18 @@ class FishingGroup
     public function removeUser(User $user): self
     {
         $this->Users->removeElement($user);
+
+        return $this;
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?User $owner): self
+    {
+        $this->owner = $owner;
 
         return $this;
     }
