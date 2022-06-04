@@ -28,6 +28,8 @@ class RegisterController extends AbstractController
 
         $user->setEmail($coco["email"]);
         $user->setUsername($coco["username"]);
+        $user->setPhone(intval($coco["phone"]));
+        $user->setTypePeche($coco["typePeche"]);
         $plaintextPassword = $coco["password"];
 
         // hash the password (based on the security.yaml config for the $user class)
