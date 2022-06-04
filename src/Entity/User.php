@@ -42,6 +42,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'integer', nullable: true)]
     private $phone;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $typePeche;
+
     public function __construct()
     {
         $this->listUsers = new ArrayCollection();
@@ -195,6 +198,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPhone(?int $phone): self
     {
         $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getTypePeche(): ?string
+    {
+        return $this->typePeche;
+    }
+
+    public function setTypePeche(?string $typePeche): self
+    {
+        $this->typePeche = $typePeche;
 
         return $this;
     }
