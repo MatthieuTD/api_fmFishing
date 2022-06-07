@@ -18,7 +18,7 @@ class GetTypeFishingController extends AbstractController
             $spots =   $fishRepo->findOneBy(["id" => 1]);
             $coco =     $spots->getSpotsList();
         }elseif($type == "leurre"){
-            $listSpot = [];
+           /* $listSpot = [];
             $brochet =   $fishRepo->findOneBy(["id" => 2]);
             $perche =   $fishRepo->findOneBy(["id" => 7]);
             $blackBass =   $fishRepo->findOneBy(["id" => 10]);
@@ -49,7 +49,9 @@ class GetTypeFishingController extends AbstractController
 
 
          $coco =   array_unique($array);
-
+*/
+            $spots =   $fishRepo->findOneBy(["id" => 2]);
+            $coco =     $spots->getSpotsList();
         }
 
 
