@@ -42,6 +42,12 @@ class FishingGroup
     #[ORM\JoinColumn(nullable: false)]
     private $owner;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $lieu;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $type;
+
     public function __construct()
     {
         $this->Users = new ArrayCollection();
@@ -156,6 +162,30 @@ class FishingGroup
     public function setOwner(?User $owner): self
     {
         $this->owner = $owner;
+
+        return $this;
+    }
+
+    public function getLieu(): ?string
+    {
+        return $this->lieu;
+    }
+
+    public function setLieu(?string $lieu): self
+    {
+        $this->lieu = $lieu;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(?string $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }
